@@ -1,4 +1,4 @@
-# Event Finder
+# To-do App
 
 **To-do app** fullstack project that allows users to keep track of their task at their their own pace. User can Create, Edit and Delete their tasks as they want.
 
