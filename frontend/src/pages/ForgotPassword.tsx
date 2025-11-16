@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { useForgot } from "../hooks/auth/useForgot";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import axios from "axios";
 
 export default function ForgotPassword() {
   const { register, handleSubmit, reset } = useForm();
@@ -22,6 +23,10 @@ export default function ForgotPassword() {
       setTimeout(() => setCopied(false), 2000);
     }
   };
+
+  const errorMessage = axios.isAxiosError(forgot.error)
+    ? forgot.error.response?.data?.message
+    : "Something went wrong";
 
   return (
     <div className="h-screen w-full flex items-center justify-center">
@@ -46,11 +51,10 @@ export default function ForgotPassword() {
             className="w-full py-3 bg-blue-600 text-white rounded-lg 
                        hover:bg-blue-700 active:bg-blue-800 transition-colors"
           >
-            {forgot.isLoading ? "Generating Link..." : "Send Reset Link"}
+            {forgot.isPending ? "Generating Link..." : "Send Reset Link"}
           </button>
         </form>
 
-        {/* SUCCESS MESSAGE WITH RESET LINK */}
         {forgot.isSuccess && forgot.data?.resetLink && (
           <div className="mt-4 p-4 bg-green-100 text-green-700 rounded-md text-sm">
             <p className="font-semibold">Reset Link Generated:</p>
@@ -67,15 +71,14 @@ export default function ForgotPassword() {
             </button>
 
             <p className="text-gray-600 text-xs mt-2">
-              Copy and paste this link into your browser to reset your password.
+              Copy this link into your browser to reset your password.
             </p>
           </div>
         )}
 
-        {/* ERROR MESSAGE */}
         {forgot.isError && (
           <p className="mt-3 text-red-600 text-center text-sm">
-            {forgot.error?.response?.data?.message || "Something went wrong"}
+            {errorMessage}
           </p>
         )}
 

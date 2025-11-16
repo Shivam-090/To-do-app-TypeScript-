@@ -54,7 +54,7 @@ export default function SignUp() {
             className="w-full py-3 bg-blue-600 text-white rounded-lg 
                        hover:bg-blue-700 active:bg-blue-800 transition-colors"
           >
-            {signup.isLoading ? "Creating Account..." : "Sign Up"}
+            {signup.isPending ? "Creating Account..." : "Sign Up"}
           </button>
         </form>
 

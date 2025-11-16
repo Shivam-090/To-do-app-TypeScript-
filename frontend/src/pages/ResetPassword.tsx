@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useReset } from "../hooks/auth/useReset";
 import { useSearchParams, useNavigate, Link } from "react-router-dom";
+import axios from "axios";
 
 export default function ResetPassword() {
   const { register, handleSubmit } = useForm();
@@ -24,6 +25,12 @@ export default function ResetPassword() {
     );
   };
 
+  const errorMessage =
+    resetPassword.error && axios.isAxiosError(resetPassword.error)
+      ? resetPassword.error.response?.data?.message ||
+        "Invalid or expired reset link"
+      : "Invalid or expired reset link";
+
   return (
     <div className="h-screen w-full flex items-center justify-center">
       <div className="w-full max-w-md bg-white shadow-lg rounded-xl p-8">
@@ -32,7 +39,6 @@ export default function ResetPassword() {
         </h1>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-
           <input
             {...register("newPassword")}
             type="password"
@@ -47,14 +53,13 @@ export default function ResetPassword() {
             className="w-full py-3 bg-blue-600 text-white rounded-lg 
                        hover:bg-blue-700 active:bg-blue-800 transition-colors"
           >
-            {resetPassword.isLoading ? "Updating..." : "Reset Password"}
+            {resetPassword.isPending ? "Updating..." : "Reset Password"}
           </button>
         </form>
 
         {resetPassword.isError && (
           <p className="mt-4 text-sm text-red-600 text-center">
-            {resetPassword.error?.response?.data?.message ||
-              "Invalid or expired reset link"}
+            {errorMessage}
           </p>
         )}
 

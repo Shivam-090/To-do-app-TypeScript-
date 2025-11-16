@@ -123,7 +123,7 @@ export default function Todos() {
               className="w-full py-3 bg-blue-600 text-white rounded-lg 
                          hover:bg-blue-700 active:bg-blue-800 transition-colors"
             >
-              {createTodo.isLoading ? "Adding..." : "Add Todo"}
+              {createTodo.isPending ? "Adding..." : "Add Todo"}
             </button>
           </form>
         </div>

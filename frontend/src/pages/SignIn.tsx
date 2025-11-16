@@ -42,7 +42,7 @@ export default function SignIn() {
             type="submit"
             className="w-full py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 active:bg-blue-800 transition-colors"
           >
-            {login.isLoading ? "Signing In..." : "Sign In"}
+            {login.isPending ? "Signing In..." : "Sign In"}
           </button>
         </form>
 

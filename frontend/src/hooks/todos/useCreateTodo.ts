@@ -3,21 +3,23 @@ import { createTodoAPI } from "../../api/todos";
 import { todoSchema } from "../../schema/todo.schema";
 import toast from "react-hot-toast";
 
-export function useCreateTodo(){
+export function useCreateTodo() {
     const qc = useQueryClient();
 
     return useMutation({
-        mutationFn: async(data: any) => {
+        mutationFn: async (data: any) => {
             todoSchema.parse(data);
             const res = await createTodoAPI(data);
-            return res.data
+            return res.data;
         },
-        onSuccess: ()=> {
-            qc.invalidateQueries(["todos"]);
-            toast.success("Todo added")
+        onSuccess: () => {
+            qc.invalidateQueries({
+                queryKey: ["todos"],
+            });
+            toast.success("Todo added");
         },
-        onError: ()=> {
-            toast.error("Failed to add todo")
+        onError: () => {
+            toast.error("Failed to add todo");
         }
     });
 }
