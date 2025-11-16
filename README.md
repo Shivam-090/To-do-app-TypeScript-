@@ -90,7 +90,4 @@ VITE_API_URL=http://localhost:3000
 **Database:** MongoDB Atlas  
 **Deployment:** Vercel (Frontend), Vercel (Backend)  
 
----
-
----
 
